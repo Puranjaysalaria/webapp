@@ -27,11 +27,12 @@ pipeline {
         }
         stage('Sonar-Report') {
             steps {
-                bat '''
-        mvn clean install sonar:sonar ^
-        -Dsonar.host.url=http://localhost:9000 ^
-        -Dsonar.login=squ_7613952e9e8a47708050f8ae99cfbac2f5820f54
-        '''
+               withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+            bat """
+            mvn clean install sonar:sonar ^
+            -Dsonar.host.url=http://localhost:9000 ^
+            -Dsonar.login=%SONAR_TOKEN%
+            """
             }
         }
     }
