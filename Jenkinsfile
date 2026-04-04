@@ -67,7 +67,6 @@ pipeline {
         }
 
         stage('Deploy') {
-            agent { label 'deployment' }
             steps {
                 bat 'C:\\deployment\\deployment.bat'
             }
