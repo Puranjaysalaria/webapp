@@ -40,9 +40,15 @@
 
 //deployment
 pipeline {
-    agent { label 'Slave-01' }
+    agent any
 
     stages {
+        stage('Checkout SCM') {
+            steps {
+                checkout scm
+            }
+        }
+
         stage('Build') {
             steps {
                 bat 'mvn -B -DskipTests clean package'
